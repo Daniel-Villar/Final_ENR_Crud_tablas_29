@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block cuerpo %}
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <!--La Tarjeta Card-->
+        <div class="card">
+            <div class="card-body">
+                <form action="/editarCompra/" method="POST"> {% csrf_token %}
+                    
+                    <div class="form-group py-2">
+                        <label for="txtidcompra">ID Compra</label>
+                        <input type="text" id="txtidcompra" name="txtidcompra" class="form-control" 
+                        value="{{ laCompra.idCompra }}" readonly required>
+                    </div>
+                    
+                    <div class="form-group py-2">
+                        <label for="txtidproveedor">ID Proveedor</label>
+                        <input type="text" id="txtidproveedor" name="txtidproveedor" class="form-control" 
+                        value="{{ laCompra.idprovedor }}" required>
+                    </div>
+                    
+                    <div class="form-group py-2">
+                        <label for="txtidempleado">ID Empleado</label>
+                        <input type="text" id="txtidempleado" name="txtidempleado" class="form-control" 
+                        value="{{ laCompra.idEmpleado }}" required>
+                    </div>
+                    
+                    <div class="form-group py-2">
+                        <label for="txtidproducto">ID Producto</label>
+                        <input type="text" id="txtidproducto" name="txtidproducto" class="form-control" 
+                        value="{{ laCompra.idProducto }}" required>
+                    </div>
+                    
+                    <div class="form-group py-2">
+                        <label for="txtcantidad">Cantidad</label>
+                        <input type="number" id="txtcantidad" name="txtcantidad" class="form-control" 
+                        value="{{ laCompra.cantidad }}" min="1" required>
+                    </div>
+                    
+                    <div class="form-group py-2">
+                        <label for="txttotal">Total</label>
+                        <input type="text" id="txttotal" name="txttotal" class="form-control" 
+                        value="{{ laCompra.total }}" required>
+                    </div>
+                    
+                    <div class="form-group py-2">
+                        <label for="txtfechacompra">Fecha de Compra</label>
+                        <input type="date" id="txtfechacompra" name="txtfechacompra" class="form-control" 
+                        value="{{ laCompra.fecha_compra }}" required>
+                    </div>
+                    
+                    <div class="form-group py-2">
+                        <button type="submit" class="btn btn-secondary">Guardar</button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+        <!--Fin de la Tarjeta Card-->
+    </div>
+</div>
+{% endblock %}

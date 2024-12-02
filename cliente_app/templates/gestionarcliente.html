@@ -1,0 +1,93 @@
+    {% extends "base.html" %}
+
+    {% block cuerpo %}
+    {% load static %}
+    <div class="row"> <!--Fila-->
+
+        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4"> <!--Columna Izquierda-->
+            <h1>Clientes</h1>
+            <div class="card"> <!--Tarjeta-->
+                <div class="card-body">
+                    <form action="/registrarClientes/" method="POST"> {% csrf_token %} <!--Formulario-->
+                        <div class="form-group">
+                            <input type="text" id="txtidCliente" name="txtidCliente" class="form-control" 
+                            placeholder="Id Clientes" minlength="4" maxlength="6" required>
+                        </div><br>
+                        <div class="form-group">
+                            <input type="text" id="txtnombre" name="txtnombre" class="form-control" 
+                            placeholder="Nombre Cliente" maxlength="100" required>
+                        </div><br>
+                        <div class="form-group">
+                            <input type="date" id="txtFech_nac" name="txtFecha_nac" class="form-control" 
+                            placeholder="Fecha de nacimiento" required>
+                        </div><br>
+                        <div class="form-group">
+                            <input type="text" id="txtSexo" name="txtSexo" class="form-control" 
+                            placeholder="Sexo" maxlength="100" required>
+                        </div><br>
+                        <div class="form-group">
+                            <input type="text" id="txtTelefono" name="txtTelefono" class="form-control" 
+                            placeholder="Numero de telefono" maxlength="100" required>
+                        </div><br>
+                        <div class="form-group">
+                            <input type="text" id="txtDireccion" name="txtDireccion" class="form-control" 
+                            placeholder="Direccion" maxlength="100" required>
+                        </div><br>
+                        <div class="form-group">
+                            <input type="text" id="txtEmail" name="txtEmail" class="form-control" 
+                            placeholder="Email" maxlength="100" required>
+                        </div><br>
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-secondary">Guardar</button>
+                        </div>
+                        
+                    </form> <!--Formulario-->
+                </div>
+            </div> <!--Tarjeta-->
+
+        </div><!--Columna Izquierda-->
+
+        <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8"> <!--Columna Derecha-->
+            <h1>Listado de clientes</h1>
+            <img class="w-50" src="{% static 'img/clientes.png' %}" alt="imagen" width="400" height="200">
+
+            <div class="table-responsive"> <!--Tabla Responsive-->
+                <table class="table table-striped my-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">idCliente</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Fecha_nacimiento</th>
+                            <th scope="col">Sexo</th>
+                            <th scope="col">Numero_telefono</th>
+                            <th scope="col">Direccion</th>
+                            <th scope="col">Email</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        {% for m in losclientes2 %}
+                        <tr>
+                            <td> {{ forloop.counter }} </td>
+                            <td> {{ m.idCliente }} </td>
+                            <td> {{ m.nombre }} </td>
+                            <td> {{ m.Fecha_nac }} </td>
+                            <td> {{ m.sexo }} </td>
+                            <td> {{ m.no_telefono }} </td>
+                            <td> {{ m.Direccion }} </td>
+                            <td> {{ m.email }} </td>
+                            <td> <a href="seleccionarClientes/{{ m.idCliente  }}" class="btn btn-info">Editar</a></td>
+                            <td> <a href="borrarClientes/{{ m.idCliente  }}" class="btn btn-danger">Borrar</a></td>
+                        </tr>    
+                        {% endfor %}                
+
+                    </tbody>
+                </table>
+
+            </div><!--Tabla Responsive-->
+        </div><!--Columna Derecha-->
+        
+    </div> <!--Fila-->
+
+    {% endblock %}

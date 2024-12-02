@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block cuerpo %}
+{% load static %}
+<div class="row">
+
+    <!-- Columna Izquierda -->
+    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+        <h1>Compras</h1>
+        <div class="card">
+            <div class="card-body">
+                <form action="/registrarCompra/" method="POST"> {% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" id="txtidcompra" name="txtidcompra" class="form-control" 
+                        placeholder="Id Compra" minlength="4" maxlength="6" required>
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" id="txtidproveedor" name="txtidproveedor" class="form-control" 
+                        placeholder="Id Proveedor" maxlength="6" required>
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" id="txtidempleado" name="txtidempleado" class="form-control" 
+                        placeholder="Id Empleado" maxlength="6" required>
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" id="txtidproducto" name="txtidproducto" class="form-control" 
+                        placeholder="Id Producto" maxlength="6" required>
+                    </div><br>
+                    <div class="form-group">
+                        <input type="number" id="txtcantidad" name="txtcantidad" class="form-control" 
+                        placeholder="Cantidad" min="1" required>
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" id="txttotal" name="txttotal" class="form-control" 
+                        placeholder="Total" required>
+                    </div><br>
+                    <div class="form-group">
+                        <input type="date" id="txtfechacompra" name="txtfechacompra" class="form-control" 
+                        placeholder="Fecha de Compra" required>
+                    </div><br>
+                    
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-secondary">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Columna Derecha -->
+    <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
+        <h1>Listado de Compras</h1>
+        <img class="w-50" src="{% static 'img/compras.avif' %}" alt="imagen" width="400" height="200">
+
+        <div class="table-responsive">
+            <table class="table table-striped my-table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Id Compra</th>
+                        <th scope="col">Id Proveedor</th>
+                        <th scope="col">Id Empleado</th>
+                        <th scope="col">Id Producto</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Fecha de Compra</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for compra in lasCompras %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ compra.idCompra }}</td>
+                        <td>{{ compra.idprovedor }}</td>
+                        <td>{{ compra.idEmpleado }}</td>
+                        <td>{{ compra.idProducto }}</td>
+                        <td>{{ compra.cantidad }}</td>
+                        <td>{{ compra.total }}</td>
+                        <td>{{ compra.fecha_compra }}</td>
+                        <td>
+                            <a href="seleccionarCompra/{{ compra.idCompra }}" class="btn btn-info">Editar</a>
+                            <a href="borrarCompra/{{ compra.idCompra }}" class="btn btn-danger">Borrar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block cuerpo %}
+{% load static %}
+<div class="row"> <!--Fila-->
+
+    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4"> <!--Columna Izquierda-->
+        <h1>Empleados</h1>
+        <div class="card"> <!--Tarjeta-->
+            <div class="card-body">
+                <form action="/registrarEmpleados/" method="POST"> {% csrf_token %} <!--Formulario-->
+                    <div class="form-group">
+                        <input type="text" id="txtidEmpleado" name="txtidEmpleado" class="form-control" 
+                        placeholder="Id Empleados" minlength="4" maxlength="6" required>
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" id="txtnombre" name="txtnombre" class="form-control" 
+                        placeholder="Nombre Empleados" maxlength="100" required>
+                    </div><br>
+                    <div class="form-group">
+                        <input type="date" id="txtFech_nac" name="txtFecha_nac" class="form-control" 
+                        placeholder="Fecha de nacimiento" required>
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" id="txtSexo" name="txtSexo" class="form-control" 
+                        placeholder="Sexo" maxlength="100" required>
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" id="txtEmail" name="txtEmail" class="form-control" 
+                        placeholder="Email" maxlength="100" required>
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" id="txtTelefono" name="txtTelefono" class="form-control" 
+                        placeholder="Numero de telefono" maxlength="100" required>
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" id="txtPuesto" name="txtPuesto" class="form-control" 
+                        placeholder="Puesto" maxlength="100" required>
+                    </div><br>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-secondary">Guardar</button>
+                    </div>
+                    
+                </form> <!--Formulario-->
+            </div>
+        </div> <!--Tarjeta-->
+
+    </div><!--Columna Izquierda-->
+
+    <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8"><!--Columna Derecha-->
+        <h1>Listado de Empleados</h1>
+        <img class="w-50" src="{% static 'img/empleado.png' %}" alt="imagen" width="400" height="250">
+
+        <div class="table-responsive"> <!--Tabla Responsive-->
+            <table class="table table-striped my-table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">idEmpleado</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Fecha_nacimiento</th>
+                        <th scope="col">Sexo</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Numero_telefono</th>
+                        <th scope="col">Puesto</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+            
+
+                    {% for m in losempleados2 %}
+                    <tr>
+                        <td> {{ forloop.counter }} </td>
+                        <td> {{ m.idEmpleado }} </td>
+                        <td> {{ m.nombre }} </td>
+                        <td> {{ m.Fecha_nac }} </td>
+                        <td> {{ m.sexo }} </td>
+                        <td> {{ m.email }} </td>
+                        <td> {{ m.no_telefono }} </td>
+                        <td> {{ m.puesto }} </td>
+                        <td> <a href="seleccionarEmpleados/{{ m.idEmpleado }}" class="btn btn-info">Editar</a></td>
+                        <td> <a href="borrarEmpleados/{{ m.idEmpleado }}" class="btn btn-danger">Borrar</a></td>
+                    </tr>    
+                    {% endfor %}                
+
+                </tbody>
+            </table>
+
+        </div><!--Tabla Responsive-->
+    </div><!--Columna Derecha-->
+    
+</div> <!--Fila-->
+
+{% endblock %}
