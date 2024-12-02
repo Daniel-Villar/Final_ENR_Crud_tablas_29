@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block cuerpo %}
+{% load static %}
+<div class="row"> <!--Fila-->
+
+    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4"> <!--Columna Izquierda-->
+        <h1>Empleados</h1>
+        <div class="card"> <!--Tarjeta-->
+            <div class="card-body">
+                <form action="/registrarVentas/" method="POST"> {% csrf_token %} <!--Formulario-->
+                    <div class="form-group">
+                        <input type="text" id="txtidventas" name="txtidventas" class="form-control" 
+                        placeholder="Id venta" minlength="4" maxlength="6" required>
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" id="txtidempleado" name="txtidempleado" class="form-control" 
+                        placeholder="Id empleado" maxlength="100" required>
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" id="txtcliente" name="txtcliente" class="form-control" 
+                        placeholder="Id cliente" required>
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" id="txtidproducto" name="txtidproducto" class="form-control" 
+                        placeholder="Id producto" maxlength="100" required>
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" id="txtsucursal" name="txtsucursal" class="form-control" 
+                        placeholder="Id sucursal" maxlength="100" required>
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" id="txtfecha_venta" name="txtfecha_venta" class="form-control" 
+                        placeholder="fecha venta" maxlength="100" required>
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" id="txtcantidad" name="txtcantidad" class="form-control" 
+                        placeholder="cantidad" maxlength="100" required>
+                    </div><br>
+                    
+                    <div class="form-group">
+                        <input type="text" id="txttotal" name="txttotal" class="form-control" 
+                        placeholder="Total" maxlength="100" required>
+                    </div><br>
+                    
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-secondary">Guardar</button>
+                    </div>
+                    
+                </form> <!--Formulario-->
+            </div>
+        </div> <!--Tarjeta-->
+
+    </div><!--Columna Izquierda-->
+
+    <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8"> <!--Columna Derecha-->
+        <h1>Listado de Empleados</h1>
+        <img class="w-50" src="{% static 'img/venta.webp' %}" alt="imagen" width="200" height="250">
+
+        <div class="table-responsive"> <!--Tabla Responsive-->
+            <table class="table table-striped my-table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">id Ventas</th>
+                        <th scope="col">id empleado</th>
+                        <th scope="col">id cliente</th>
+                        <th scope="col">id producto</th>
+                        <th scope="col">Id sucursal</th>
+                        <th scope="col">fecha de venta"</th>
+                        <th scope="col">cantidad</th>
+                        <th scope="col">total</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+            
+
+                    {% for m in LasVentas2 %}
+                    <tr>
+                        <td> {{ forloop.counter }} </td>
+                        <td> {{ m.idVentas }} </td>
+                        <td> {{ m.idEmpleado }} </td>
+                        <td> {{ m.idCliente }} </td>
+                        <td> {{ m.idProductos }} </td>
+                        <td> {{ m.idSucursal }} </td>
+                        <td> {{ m.fecha_venta }} </td>
+                        <td> {{ m.cantidad }} </td>
+                        <td> {{ m.total}} </td>
+                        <td> <a href="seleccionaVentas/{{ m.idVentas  }}" class="btn btn-info">Editar</a></td>
+                        <td> <a href="borrarVentas/{{ m.idVentas }}" class="btn btn-danger">Borrar</a></td>
+                    </tr>    
+                    {% endfor %}                
+
+                </tbody>
+            </table>
+
+        </div><!--Tabla Responsive-->
+    </div><!--Columna Derecha-->
+    
+</div> <!--Fila-->
+
+{% endblock %}

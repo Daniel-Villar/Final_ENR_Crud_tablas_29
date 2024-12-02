@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block cuerpo %}
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <!--La Tarjeta Card-->
+        <div class="card"> <!--Tarjeta-->
+            <div class="card-body">
+                <form action="/editarVentas/" method="POST"> 
+                    {% csrf_token %} <!--Formulario-->
+                    
+                    <div class="form-group py-2">
+                        <input type="text" id="txtidventas" name="txtidventas" class="form-control" 
+                        value="{{ venta.idVentas }}" readonly required>
+                    </div>
+                    
+                    <div class="form-group py-2">
+                        <input type="text" id="txtidempleado" name="txtidempleado" class="form-control" 
+                        value="{{ venta.idEmpleado }}" required>
+                    </div>
+                    
+                    <div class="form-group py-2">
+                        <input type="text" id="txtcliente" name="txtcliente" class="form-control" 
+                        value="{{ venta.idCliente }}" required>
+                    </div>  
+                    
+                    <div class="form-group py-2">
+                        <input type="text" id="txtidproducto" name="txtidproducto" class="form-control" 
+                        value="{{ venta.idProductos }}" required>
+                    </div>                    
+                    
+                    <div class="form-group py-2">
+                        <input type="text" id="txtsucursal" name="txtsucursal" class="form-control" 
+                        value="{{ venta.idSucursal }}" required>
+                    </div>
+                    
+                    <div class="form-group py-2">
+                        <input type="text" id="txtfecha_venta" name="txtfecha_venta" class="form-control" 
+                        value="{{ venta.fecha_venta }}" required>
+                    </div>
+                    
+                    <div class="form-group py-2">
+                        <input type="text" id="txtcantidad" name="txtcantidad" class="form-control" 
+                        value="{{ venta.cantidad }}" required>
+                    </div>
+                    
+                    <div class="form-group py-2">
+                        <input type="text" id="txttotal" name="txttotal" class="form-control" 
+                        value="{{ venta.total }}" required>
+                    </div>
+                    
+                    <div class="form-group py-2">
+                        <button type="submit" class="btn btn-secondary">Guardar</button>
+                    </div>
+                    
+                </form> <!--Formulario-->
+            </div>
+        </div>
+        <!--Fin de la Tarjeta Card-->
+    </div><!--La Columna--> 
+</div><!--La Fila-->
+{% endblock %}
