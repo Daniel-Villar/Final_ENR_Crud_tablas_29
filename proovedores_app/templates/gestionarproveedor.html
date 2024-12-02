@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block cuerpo %}
+{% load static %}
+<div class="row"> <!-- Fila -->
+
+    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4"> <!-- Columna Izquierda -->
+        <h1>Proveedores</h1>
+        <div class="card"> <!-- Tarjeta -->
+            <div class="card-body">
+                <form action="/registrarProveedores/" method="POST"> {% csrf_token %} <!-- Formulario -->
+                    <div class="form-group">
+                        <input type="text" id="txtidProveedor" name="txtidProveedor" class="form-control" 
+                        placeholder="Id Proveedor" minlength="4" maxlength="4" required>
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" id="txtnombre" name="txtnombre" class="form-control" 
+                        placeholder="Nombre Proveedor" maxlength="100" required>
+                    </div><br>
+                    <div class="form-group">
+                        <input type="date" id="txtfecha_nac" name="txtfecha_nac" class="form-control" 
+                        placeholder="Fecha de nacimiento" required>
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" id="txtsexo" name="txtsexo" class="form-control" 
+                        placeholder="Sexo" maxlength="100" required>
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" id="txtcurp" name="txtcurp" class="form-control" 
+                        placeholder="CURP" maxlength="100" required>
+                    </div><br>
+                    <div class="form-group">
+                        <input type="email" id="txtemail" name="txtemail" class="form-control" 
+                        placeholder="Email" maxlength="100" required>
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" id="txtno_telefono" name="txtno_telefono" class="form-control" 
+                        placeholder="Número de Teléfono" maxlength="100" required>
+                    </div><br>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-secondary">Guardar</button>
+                    </div>
+                </form> <!-- Formulario -->
+            </div>
+        </div> <!-- Tarjeta -->
+    </div><!-- Columna Izquierda -->
+
+    <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8"> <!-- Columna Derecha -->
+        <h1>Listado de Proveedores</h1>
+        <img class="w-50" src="{% static 'img/prov.png' %}" alt="imagen" width="400" height="350">
+
+        <div class="table-responsive">
+            <table class="table table-striped my-table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">idProveedor</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Fecha de Nacimiento</th>
+                        <th scope="col">Sexo</th>
+                        <th scope="col">CURP</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Teléfono</th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    {% for m in losProveedores %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ m.idProveedor }}</td>
+                        <td>{{ m.nombre }}</td>
+                        <td>{{ m.fecha_nac }}</td>
+                        <td>{{ m.sexo }}</td>
+                        <td>{{ m.curp }}</td>
+                        <td>{{ m.email }}</td>
+                        <td>{{ m.no_telefono }}</td>
+                        <td><a href="seleccionarProveedores/{{ m.idProveedor }}" class="btn btn-info">Editar</a></td>
+                        <td><a href="borrarProveedores/{{ m.idProveedor }}" class="btn btn-danger">Borrar</a></td>
+                    </tr>    
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div><!-- Tabla Responsive -->
+    </div><!-- Columna Derecha -->
+
+</div><!-- Fila -->
+
+{% endblock %}

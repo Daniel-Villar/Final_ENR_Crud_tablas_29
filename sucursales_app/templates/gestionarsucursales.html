@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block cuerpo %}
+{% load static %}
+<div class="row"> <!--Fila-->
+
+    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4"> <!--Columna Izquierda-->
+        <h1>Sucursales</h1>
+        <div class="card"> <!--Tarjeta-->
+            <div class="card-body">
+                <form action="/registrarSucursales/" method="POST"> {% csrf_token %} <!--Formulario-->
+                    <div class="form-group">
+                        <input type="text" id="txtidsucursal" name="txtidsucursal" class="form-control" 
+                        placeholder="Id sucursal" minlength="4" maxlength="6" required>
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" id="txtnombre" name="txtnombre" class="form-control" 
+                        placeholder="Nombre" maxlength="50" required>
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" id="txtdireccion" name="txtdireccion" class="form-control" 
+                        placeholder="Dirección" maxlength="100" required>
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" id="txtnumtelefono" name="txtnumtelefono" class="form-control" 
+                        placeholder="Número de Teléfono" maxlength="15" required>
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" id="txthorario" name="txthorario" class="form-control" 
+                        placeholder="Horario" maxlength="50" required>
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" id="txtempleados" name="txtempleados" class="form-control" 
+                        placeholder="Empleados" maxlength="100" required>
+                    </div><br>
+                    <div class="form-group">
+                        <input type="email" id="txtemail" name="txtemail" class="form-control" 
+                        placeholder="Email" required>
+                    </div><br>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-secondary">Guardar</button>
+                    </div>
+                </form> <!--Formulario-->
+            </div>
+        </div> <!--Tarjeta-->
+
+    </div><!--Columna Izquierda-->
+
+   <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">  <!--Columna Derecha-->
+        <h1>Listado de Sucursales</h1>
+        <img class="w-50" src="{% static 'img/sucursales.png' %}" alt="imagen" width="400" height="200">
+
+        <div class="table-responsive"> <!--Tabla Responsive-->
+            <table class="table table-striped my-table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Id Sucursal</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Dirección</th>
+                        <th scope="col">Teléfono</th>
+                        <th scope="col">Horario</th>
+                        <th scope="col">Empleados</th>
+                        <th scope="col">Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% for s in LasSucursales2 %}
+                    <tr>
+                        <td> {{ forloop.counter }} </td>
+                        <td> {{ s.idSucursales }} </td>
+                        <td> {{ s.nombre }} </td>
+                        <td> {{ s.direccion }} </td>
+                        <td> {{ s.num_telefono }} </td>
+                        <td> {{ s.horario }} </td>
+                        <td> {{ s.empleados }} </td>
+                        <td> {{ s.email }} </td>
+                        <td> <a href="seleccionarSucursales/{{ s.idSucursales  }}" class="btn btn-info">Editar</a></td>
+                        <td> <a href="borrarSucursales/{{ s.idSucursales}}" class="btn btn-danger">Borrar</a></td>
+                    </tr>    
+                    {% endfor %}                
+
+                </tbody>
+            </table>
+
+        </div><!--Tabla Responsive-->
+    </div><!--Columna Derecha-->
+    
+</div> <!--Fila-->
+
+{% endblock %}

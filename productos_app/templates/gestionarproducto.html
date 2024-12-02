@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block cuerpo %}
+{% load static %}
+<div class="row"> <!--Fila-->
+
+    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4"> <!--Columna Izquierda-->
+        <h1>Productos</h1>
+        <div class="card"> <!--Tarjeta-->
+            <div class="card-body">
+                <form action="/registrarProductos/" method="POST"> {% csrf_token %} <!--Formulario-->
+                    <div class="form-group">
+                        <input type="text" id="txtidproducto" name="txtidproducto" class="form-control" 
+                        placeholder="Id Producto" minlength="4" maxlength="6" required>
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" id="txtnombre" name="txtnombre" class="form-control" 
+                        placeholder="Nombre Producto" maxlength="100" required>
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" id="txtprecio" name="txtprecio" class="form-control" 
+                        placeholder="precio" required>
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" id="txtdescripcion" name="txtdescripcion" class="form-control" 
+                        placeholder="descripcion" maxlength="100" required>
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" id="txtprecio_mayoreo" name="txtprecio_mayoreo" class="form-control" 
+                        placeholder="precio a mayoreo" maxlength="100" required>
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" id="txtstock" name="txtstock" class="form-control" 
+                        placeholder="Stock" maxlength="100" required>
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" id="txtdemanda" name="txtdemanda" class="form-control" 
+                        placeholder="demanda" maxlength="100" required>
+                    </div><br>
+                    
+                    <div class="form-group">
+                        <input type="text" id="txtidsucursal" name="txtidsucursal" class="form-control" 
+                        placeholder="Id sucursal" maxlength="100" required>
+                    </div><br>
+                    
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-secondary">Guardar</button>
+                    </div>
+                    
+                </form> <!--Formulario-->
+            </div>
+        </div> <!--Tarjeta-->
+
+    </div><!--Columna Izquierda-->
+
+    <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
+        <h1>Listado de Productos</h1>
+        <img class="w-50" src="{% static 'img/productos.png' %}" alt="imagen" width="400" height="200">
+
+        <div class="table-responsive"> <!--Tabla Responsive-->
+            <table class="table table-striped my-table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">idProducto</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">descripcion</th>
+                        <th scope="col">precio_mayoreo</th>
+                        <th scope="col">stock</th>
+                        <th scope="col">demanda </th>
+                        <th scope="col">idSucursal</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+            
+
+                    {% for m in losProductos2 %}
+                    <tr>
+                        <td> {{ forloop.counter }} </td>
+                        <td> {{ m.idProducto }} </td>
+                        <td> {{ m.nombre }} </td>
+                        <td> {{ m.Precio }} </td>
+                        <td> {{ m.descripcion }} </td>
+                        <td> {{ m.precio_mayoreo }} </td>
+                        <td> {{ m.stock }} </td>
+                        <td> {{ m.demanda }} </td>
+                        <td> {{ m.idSucursal}} </td>
+                        <td> <a href="seleccionarProductos/{{m.idProducto }}" class="btn btn-info">Editar</a></td>
+                        <td> <a href="borrarProductos/{{m.idProducto }}" class="btn btn-danger">Borrar</a></td>
+                    </tr>    
+                    {% endfor %}                
+
+                </tbody>
+            </table>
+
+        </div><!--Tabla Responsive-->
+    </div><!--Columna Derecha-->
+    
+</div> <!--Fila-->
+
+{% endblock %}
